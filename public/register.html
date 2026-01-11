@@ -5,41 +5,288 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - CompuStore</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { background-color: #f0f2f5; }
-        .reg-card { max-width: 400px; width: 100%; }
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-dark: #2d3748;
+            --text-muted: #718096;
+            --bg-input: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        /* --- Animasi Masuk --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* --- Layout Utama --- */
+        .register-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- Sisi Kiri (Gambar) --- */
+        .register-left {
+            position: relative;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%); /* Gradient dibalik agar sedikit beda dari login */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
+            overflow: hidden;
+        }
+
+        .register-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Menggunakan gambar yang sama agar hemat aset */
+            background-image: url('images/BackgroundLogin.jpg'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.35;
+            mix-blend-mode: overlay;
+        }
+        
+        .register-left-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .register-left h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .register-left p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- Sisi Kanan (Form) --- */
+        .register-right {
+            width: 45%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8%;
+            position: relative;
+        }
+
+        /* Navbar */
+        .top-nav {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .top-nav a.active, .top-nav a:hover {
+            color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /* Form Wrapper */
+        .register-form-wrapper {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .register-right h2 {
+            color: var(--text-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .register-right .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-control, .form-select {
+            height: 50px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            padding-left: 15px;
+            background-color: var(--bg-input);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-dark);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .btn-register {
+            height: 52px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.5);
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .register-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .register-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .register-footer a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+
+        /* Responsif */
+        @media (max-width: 992px) {
+            .register-left { display: none; }
+            .register-right { width: 100%; padding: 40px; }
+            .top-nav { justify-content: center; top: 20px; right: 0; width: 100%; }
+        }
     </style>
 </head>
-<body class="d-flex align-items-center justify-content-center vh-100">
-
-    <div class="card reg-card shadow-sm border-0">
-        <div class="card-body p-5">
-            <h3 class="text-center mb-4 fw-bold text-success">Buat Akun Baru</h3>
+<body>
+    
+    <div class="register-container">
+        <div class="register-left">
+            <div class="register-bg-image"></div>
             
-            <form id="regForm">
-                <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    <input type="text" id="username" class="form-control" required placeholder="Pilih username unik">
-                </div>
+            <div class="register-left-content animate-in">
+                <h1>Mulai Perjalanan Anda</h1>
+                <p>Bergabunglah dengan komunitas CompuStore untuk mendapatkan akses ke teknologi terbaru dan penawaran eksklusif.</p>
+            </div>
+        </div>
+        
+        <div class="register-right">
+            <nav class="top-nav animate-in delay-1">
+                <a href="index.html">Login</a>
+                <a href="register.html" class="active">Register</a>
+                <a href="#">Docs</a>
+            </nav>
+
+            <div class="register-form-wrapper animate-in delay-2">
+                <h2>Buat Akun Baru</h2>
+                <p class="subtitle">Lengkapi data diri Anda untuk mendaftar.</p>
                 
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-control" required placeholder="Minimal 6 karakter">
-                </div>
+                <form id="regForm">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Pilih username unik" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Minimal 6 karakter" required>
+                    </div>
 
-                <div class="mb-4">
-                    <label class="form-label">Daftar Sebagai</label>
-                    <select id="role" class="form-select">
-                        <option value="user">User (Pembeli)</option>
-                        <option value="admin">Admin (Pengelola)</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">Daftar Sebagai</label>
+                        <select id="role" class="form-select">
+                            <option value="user">User (Pembeli)</option>
+                            <option value="admin">Admin (Pengelola)</option>
+                        </select>
+                    </div>
 
-                <button type="submit" class="btn btn-success w-100 py-2">Daftar Sekarang</button>
-            </form>
-            
-            <div class="text-center mt-3">
-                <small>Sudah punya akun? <a href="index.html" class="text-decoration-none">Login disini</a></small>
+                    <button type="submit" class="btn btn-register">
+                        Daftar Sekarang <i class="fas fa-user-plus ms-2"></i>
+                    </button>
+                </form>
+                
+                <div class="register-footer animate-in delay-3">
+                    Sudah punya akun? <a href="index.html">Login disini</a>
+                </div>
             </div>
         </div>
     </div>
@@ -48,28 +295,52 @@
         document.getElementById('regForm').onsubmit = async (e) => {
             e.preventDefault();
             
-            // Ambil data dari form
+            const btn = document.querySelector('.btn-register');
+            const originalText = btn.innerHTML;
+            
+            // Efek Loading UI
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const role = document.getElementById('role').value; // Ambil nilai role
+            const role = document.getElementById('role').value;
 
-            const res = await fetch('/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                    role: role // Kirim role ke backend
-                })
-            });
+            try {
+                const res = await fetch('/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        role: role
+                    })
+                });
 
-            const data = await res.json();
-            
-            if (data.success) {
-                alert('Registrasi Berhasil! Silakan Login dengan akun baru Anda.');
-                window.location.href = 'index.html';
-            } else {
-                alert('Gagal: ' + (data.message || 'Username mungkin sudah dipakai'));
+                const data = await res.json();
+                
+                if (data.success) {
+                    // Jika sukses, beri jeda sedikit agar user lihat
+                    btn.innerHTML = '<i class="fas fa-check"></i> Berhasil!';
+                    btn.style.background = '#48bb78'; // Warna hijau sukses
+                    
+                    setTimeout(() => {
+                        alert('Registrasi Berhasil! Silakan Login.');
+                        window.location.href = 'index.html';
+                    }, 500);
+                } else {
+                    alert('Gagal: ' + (data.message || 'Username mungkin sudah dipakai'));
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Terjadi kesalahan koneksi");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.style.opacity = '1';
             }
         };
     </script>

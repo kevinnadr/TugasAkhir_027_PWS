@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Explorer - CompuStore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .navbar .btn-outline-light:hover {
+            background-color: white;
+            color: #667eea !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header-section p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .greeting-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #667eea;
+        }
+        
+        .greeting-card h3 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .greeting-card p {
+            color: #999;
+            margin: 0;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-control, .form-select {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            height: 45px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .api-input-group {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .api-input-group h5 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .btn-action {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            height: 45px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .response-section {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 450px;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+        
+        .response-header {
+            color: #4ec9b0;
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .response-code {
+            color: #ce9178;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 10px;
+            background: #2d2d2d;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        
+        .json-key { color: #9cdcfe; }
+        .json-string { color: #ce9178; }
+        .json-number { color: #b5cea8; }
+        
+        .request-url {
+            background-color: #2d2d2d;
+            color: #d7ba7d;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            border: 1px solid #333;
+            font-family: 'Courier New', monospace;
+        }
+        
+        #responseContainer {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .endpoint-examples {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .endpoint-examples h5 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .example-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .example-item:hover {
+            background: #e8eaf6;
+            transform: translateX(5px);
+        }
+        
+        .example-method {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            margin-right: 10px;
+            color: white;
+        }
+        
+        .method-get { background: #10b981; }
+        .method-post { background: #3b82f6; }
+        .method-put { background: #f59e0b; }
+        .method-delete { background: #ef4444; }
+        
+        @media (max-width: 768px) {
+            .header-section h2 {
+                font-size: 24px;
+            }
+            
+            .api-input-group {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-flask"></i> API Explorer</a>
+            <div>
+                <a href="user_dashboard.html" class="btn btn-outline-light btn-sm me-2"><i class="fas fa-arrow-left"></i> Dashboard</a>
+                <a href="/auth/logout" class="btn btn-outline-light btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header-section">
+        <div class="container">
+            <h2><i class="fas fa-flask"></i> Jelajahi API CompuStore</h2>
+            <p>Test dan coba semua endpoint API secara interaktif</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Greeting Card -->
+                <div class="greeting-card">
+                    <h3><i class="fas fa-wave-hand"></i> Halo, <span id="userName" class="text-primary">User</span>!</h3>
+                    <p>Gunakan form di bawah untuk memanggil API CompuStore. Masukkan API Key Anda terlebih dahulu.</p>
+                </div>
+
+                <!-- Endpoint Examples -->
+                <div class="endpoint-examples">
+                    <h5><i class="fas fa-bookmark"></i> Contoh Endpoint</h5>
+                    
+                    <div class="example-item" onclick="loadExample('GET', 'http://localhost:3000/api/products')">
+                        <span class="example-method method-get">GET</span>
+                        <span>/api/products</span>
+                        <small class="d-block text-muted mt-1">Ambil semua produk</small>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('GET', 'http://localhost:3000/api/products/1')">
+                        <span class="example-method method-get">GET</span>
+                        <span>/api/products/1</span>
+                        <small class="d-block text-muted mt-1">Ambil produk by ID</small>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('POST', 'http://localhost:3000/api/products/buy/1')">
+                        <span class="example-method method-post">POST</span>
+                        <span>/api/products/buy/:id</span>
+                        <small class="d-block text-muted mt-1">Beli produk (kurangi stok)</small>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('GET', 'http://localhost:3000/api/user/orders')">
+                        <span class="example-method method-get">GET</span>
+                        <span>/api/user/orders</span>
+                        <small class="d-block text-muted mt-1">Ambil pesanan user</small>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('POST', 'http://localhost:3000/api/orders/create')">
+                        <span class="example-method method-post">POST</span>
+                        <span>/api/orders/create</span>
+                        <small class="d-block text-muted mt-1">Buat pesanan baru</small>
+                    </div>
+                </div>
+
+                <!-- API Explorer Form -->
+                <div class="api-input-group">
+                    <h5><i class="fas fa-flask"></i> Interactive API Explorer</h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-key"></i> Your API Key</label>
+                        <input type="text" id="explorerApiKey" class="form-control" placeholder="Masukkan API Key Anda..." value="">
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fas fa-globe"></i> Protocol</label>
+                            <select id="explorerProtocol" class="form-select">
+                                <option value="HTTP">HTTP</option>
+                                <option value="HTTPS">HTTPS</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fas fa-cogs"></i> Method</label>
+                            <select id="explorerMethod" class="form-select">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-link"></i> Endpoint URL</label>
+                        <input type="text" id="explorerUrl" class="form-control" placeholder="e.g., /api/products or http://localhost:3000/api/products">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-code"></i> Request Body (JSON)</label>
+                        <textarea id="explorerBody" class="form-control" placeholder='{"key": "value"}'></textarea>
+                    </div>
+
+                    <button onclick="sendRequest()" class="btn btn-action w-100 mb-3">
+                        <i class="fas fa-paper-plane"></i> Send Request
+                    </button>
+                </div>
+
+                <!-- Response Section -->
+                <div id="responseContainer" style="display: none;">
+                    <div class="mb-4">
+                        <h5 class="response-header"><i class="fas fa-terminal"></i> Call</h5>
+                        <div class="request-url" id="callUrl">-</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="response-header"><i class="fas fa-check-circle"></i> Response Code</h5>
+                        <div class="response-code" id="responseCode">-</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="response-header"><i class="fas fa-heading"></i> Response Headers</h5>
+                        <div class="response-section" id="responseHeaders">-</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="response-header"><i class="fas fa-database"></i> Response Body</h5>
+                        <div class="response-section" id="responseBody">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load user data saat halaman dibuka
+        async function loadData() {
+            try {
+                const res = await fetch('/api/user/me');
+                if (res.status === 401) window.location.href = 'index.html';
+                const user = await res.json();
+                document.getElementById('userName').innerText = user.username;
+                if (user.api_key) {
+                    document.getElementById('explorerApiKey').value = user.api_key;
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        // Load contoh endpoint ke form
+        function loadExample(method, url) {
+            document.getElementById('explorerMethod').value = method;
+            document.getElementById('explorerUrl').value = url;
+            document.getElementById('explorerBody').value = '';
+            
+            // Scroll ke form
+            document.querySelector('.api-input-group').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Send API Request
+        async function sendRequest() {
+            const apiKey = document.getElementById('explorerApiKey').value.trim();
+            const protocol = document.getElementById('explorerProtocol').value;
+            const method = document.getElementById('explorerMethod').value;
+            let url = document.getElementById('explorerUrl').value.trim();
+            const bodyText = document.getElementById('explorerBody').value.trim();
+
+            // Validasi API Key
+            if (!apiKey) {
+                alert('Masukkan API Key terlebih dahulu!');
+                return;
+            }
+
+            // Validasi URL
+            if (!url) {
+                alert('Masukkan Endpoint URL!');
+                return;
+            }
+
+            // Normalkan URL (tambahkan http jika tidak ada)
+            if (!url.startsWith('http')) {
+                url = `http://localhost:3000${url.startsWith('/') ? '' : '/'}${url}`;
+            }
+
+            try {
+                // Buat header dengan API Key
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey
+                };
+
+                // Siapkan body jika ada
+                let body = null;
+                if (method !== 'GET' && method !== 'DELETE' && bodyText) {
+                    try {
+                        body = JSON.parse(bodyText);
+                    } catch (e) {
+                        alert('Body JSON tidak valid!');
+                        return;
+                    }
+                }
+
+                // Kirim request
+                const fetchOptions = {
+                    method: method,
+                    headers: headers
+                };
+
+                if (body) {
+                    fetchOptions.body = JSON.stringify(body);
+                }
+
+                const response = await fetch(url, fetchOptions);
+                
+                // Ambil response data
+                const responseText = await response.text();
+                let responseData = null;
+                
+                try {
+                    responseData = JSON.parse(responseText);
+                } catch (e) {
+                    responseData = responseText;
+                }
+
+                // Format response headers
+                const headersObj = {};
+                response.headers.forEach((value, name) => {
+                    headersObj[name] = value;
+                });
+
+                // Tampilkan hasil
+                displayResponse(url, response.status, headersObj, responseData);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert(`Error: ${error.message}`);
+                displayErrorResponse(error.message);
+            }
+        }
+
+        // Display response
+        function displayResponse(url, statusCode, headers, body) {
+            const container = document.getElementById('responseContainer');
+            container.style.display = 'block';
+
+            // Call URL
+            document.getElementById('callUrl').textContent = url;
+
+            // Response Code
+            const codeElement = document.getElementById('responseCode');
+            codeElement.textContent = statusCode;
+            codeElement.style.color = statusCode >= 200 && statusCode < 300 ? '#4ec9b0' : '#f48771';
+
+            // Response Headers
+            const headersElement = document.getElementById('responseHeaders');
+            const headersContent = formatHeaders(headers);
+            headersElement.innerHTML = `<pre>${headersContent}</pre>`;
+
+            // Response Body
+            const bodyElement = document.getElementById('responseBody');
+            const bodyContent = typeof body === 'string' ? body : JSON.stringify(body, null, 2);
+            bodyElement.innerHTML = `<pre>${formatJson(bodyContent)}</pre>`;
+
+            // Scroll to response
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        // Display error response
+        function displayErrorResponse(errorMessage) {
+            const container = document.getElementById('responseContainer');
+            container.style.display = 'block';
+
+            document.getElementById('callUrl').textContent = 'Error';
+            document.getElementById('responseCode').textContent = 'ERROR';
+            document.getElementById('responseCode').style.color = '#f48771';
+            document.getElementById('responseHeaders').innerHTML = '<pre>-</pre>';
+            document.getElementById('responseBody').innerHTML = `<pre>${errorMessage}</pre>`;
+        }
+
+        // Format headers untuk display
+        function formatHeaders(headers) {
+            let content = '{\n';
+            const keys = Object.keys(headers);
+            keys.forEach((key, index) => {
+                content += `  <span class="json-key">"${key}"</span>: <span class="json-string">"${headers[key]}"</span>`;
+                if (index < keys.length - 1) content += ',';
+                content += '\n';
+            });
+            content += '}';
+            return content;
+        }
+
+        // Format JSON dengan syntax highlighting
+        function formatJson(jsonString) {
+            try {
+                let json = JSON.parse(jsonString);
+                let formatted = JSON.stringify(json, null, 2);
+                
+                // Syntax highlighting sederhana
+                formatted = formatted
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
+                    .replace(/: "([^"]*)"/g, ': <span class="json-string">"$1"</span>')
+                    .replace(/: ([0-9]+)/g, ': <span class="json-number">$1</span>')
+                    .replace(/: (true|false|null)/g, ': <span class="json-number">$1</span>');
+                
+                return formatted;
+            } catch (e) {
+                return jsonString;
+            }
+        }
+
+        // Load data saat halaman dibuka
+        loadData();
+    </script>
+</body>
+</html>

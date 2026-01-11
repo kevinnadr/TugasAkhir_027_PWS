@@ -4,609 +4,431 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard User - CompuStore</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        :root {
+            --primary-color: #4F46E5; /* Indigo 600 */
+            --primary-hover: #4338ca;
+            --bg-body: #F3F4F6;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --card-radius: 16px;
+        }
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: var(--bg-body);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 40px;
         }
-        
+
+        /* Navbar Styling */
         .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 1rem 0;
         }
-        
+
         .navbar-brand {
-            font-size: 24px;
             font-weight: 700;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        .navbar .btn-outline-light:hover {
-            background-color: white;
-            color: #667eea !important;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .header-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 0;
-            margin-bottom: 40px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-section h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .header-section p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-        
-        .greeting-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid #667eea;
-        }
-        
-        .greeting-card h3 {
-            color: #333;
-            margin-bottom: 8px;
-        }
-        
-        .greeting-card p {
-            color: #999;
-            margin: 0;
-        }
-        
-        .nav-tabs {
-            border-bottom: 2px solid #e0e0e0;
+            color: var(--primary-color) !important;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
-        
-        .nav-tabs .nav-link {
-            color: #666;
-            border: none;
-            border-bottom: 3px solid transparent;
-            border-radius: 8px 8px 0 0;
-            padding: 12px 20px;
+
+        .btn-logout {
+            color: var(--text-muted);
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.875rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
-        
-        .nav-tabs .nav-link:hover {
-            background-color: #f5f5f5;
-            color: #667eea;
+
+        .btn-logout:hover {
+            background-color: #FEF2F2;
+            color: #DC2626;
+            border-color: #FECACA;
         }
-        
-        .nav-tabs .nav-link.active {
-            background-color: transparent;
-            color: #667eea;
-            border-bottom-color: #667eea;
+
+        /* Main Container */
+        .main-wrapper {
+            margin-top: 40px;
         }
-        
-        .tab-content {
-            border: none;
-            padding: 30px 0;
-        }
-        
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            margin-bottom: 25px;
-        }
-        
-        .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            padding: 20px;
+
+        /* Hero Card */
+        .hero-card {
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
             color: white;
-            font-weight: 600;
+            border-radius: var(--card-radius);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Content Cards */
+        .card-custom {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--card-radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         
         .card-body {
-            padding: 25px;
+            padding: 2rem;
         }
-        
-        .api-input-group {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 30px;
+
+        .card-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            background: #EEF2FF;
+            color: var(--primary-color);
             border-radius: 12px;
-            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
         }
-        
-        .api-input-group h5 {
-            color: #333;
+
+        .card-title-custom {
             font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
         }
-        
-        .form-label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            display: block;
-        }
-        
-        .form-control, .form-select {
-            border: 2px solid #e0e0e0;
+
+        /* API Key Display Box */
+        .api-key-box {
+            background: #111827;
             border-radius: 8px;
-            height: 45px;
-            padding: 10px 15px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-        
-        .form-control:focus, .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            outline: none;
-        }
-        
-        textarea.form-control {
-            height: 120px;
-            resize: vertical;
-        }
-        
-        .keyStatus-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            color: white;
-            margin-bottom: 20px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            color: #10B981;
             font-weight: 600;
-            font-size: 16px;
-            word-break: break-all;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid #374151;
+            position: relative;
         }
-        
-        .keyStatus-empty {
-            background: linear-gradient(135deg, #999 0%, #666 100%);
+
+        .api-key-box.empty {
+            color: #6B7280;
+            justify-content: center;
+            background: #F9FAFB;
+            border: 1px dashed #D1D5DB;
         }
-        
-        .btn-action {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        .btn-copy {
+            background: rgba(255,255,255,0.1);
             border: none;
             color: white;
-            font-weight: 600;
-            border-radius: 8px;
-            height: 45px;
-            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
         }
-        
-        .btn-action:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+
+        .btn-copy:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Custom Buttons */
+        .btn-primary-custom {
+            background-color: var(--primary-color);
             color: white;
-            text-decoration: none;
-        }
-        
-        .response-section {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            max-height: 450px;
-            overflow-y: auto;
-            border: 1px solid #333;
-        }
-        
-        .response-header {
-            color: #4ec9b0;
-            font-weight: 700;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .response-code {
-            color: #ce9178;
-            font-size: 18px;
-            font-weight: 700;
-            padding: 10px;
-            background: #2d2d2d;
-            border-radius: 6px;
-            display: inline-block;
-        }
-        
-        .json-key { color: #9cdcfe; }
-        .json-string { color: #ce9178; }
-        .json-number { color: #b5cea8; }
-        
-        .request-url {
-            background-color: #2d2d2d;
-            color: #d7ba7d;
-            padding: 15px;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
-            word-break: break-all;
-            border: 1px solid #333;
-            font-family: 'Courier New', monospace;
+            border: none;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-custom:hover {
+            background: #EEF2FF;
+        }
+
+        /* Input Styling */
+        .form-control-custom {
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
         }
         
-        #responseContainer {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        .form-control-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            outline: none;
         }
-        
-        @media (max-width: 768px) {
-            .header-section h2 {
-                font-size: 24px;
-            }
-            
-            .api-input-group {
-                padding: 20px;
-            }
-            
-            .card-body {
-                padding: 15px;
-            }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark sticky-top">
+
+    <nav class="navbar sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-tachometer-alt"></i> CompuStore Dashboard</a>
-            <a href="/auth/logout" class="btn btn-outline-light btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <a class="navbar-brand" href="#">
+                <div style="width: 32px; height: 32px; background: var(--primary-color); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white;">
+                    <i class="fas fa-cube"></i>
+                </div>
+                CompuStore
+            </a>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-muted d-none d-md-block small">Developer Console</span>
+                <a href="/auth/logout" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </a>
+            </div>
         </div>
     </nav>
 
-    
-    <div class="header-section">
-        <div class="container">
-            <h2><i class="fas fa-key"></i> Kelola API Key Anda</h2>
-            <p>Generate dan manage API Key untuk mengakses API CompuStore</p>
+    <div class="container main-wrapper">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                
+                <div class="hero-card">
+                    <h1 class="hero-title">Selamat Datang, <span id="userName">Developer</span>!</h1>
+                    <p class="hero-subtitle">Kelola akses API Anda untuk mengintegrasikan layanan CompuStore ke dalam aplikasi Anda.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card-custom">
+                            <div class="card-body">
+                                <div class="card-icon-wrapper">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <h3 class="card-title-custom">1. API Key Anda</h3>
+                                <p class="text-muted small mb-3">Gunakan key ini untuk autentikasi di setiap request API.</p>
+                                
+                                <div id="keyStatusContainer">
+                                    <div class="api-key-box empty" id="keyStatusEmpty">
+                                        <span><i class="fas fa-ban me-2"></i>Belum ada API Key</span>
+                                    </div>
+                                    <div class="api-key-box d-none" id="keyStatusActive">
+                                        <span id="apiKeyValue">CS-XXXXXXXX</span>
+                                        <button class="btn-copy" onclick="copyToClipboard()" title="Salin Key">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button onclick="generateKey()" class="btn btn-primary-custom">
+                                    <i class="fas fa-magic me-2"></i> Generate Key Baru
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card-custom">
+                            <div class="card-body">
+                                <div class="card-icon-wrapper" style="background-color: #ECFDF5; color: #10B981;">
+                                    <i class="fas fa-check-shield"></i>
+                                </div>
+                                <h3 class="card-title-custom">2. Validasi Akses</h3>
+                                <p class="text-muted small mb-3">Tes koneksi API Anda sebelum mengintegrasikannya.</p>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-muted">Paste API Key</label>
+                                    <input type="text" id="inputKey" class="form-control form-control-custom" placeholder="Contoh: cs_live_rk...">
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-custom" onclick="validateKey()">
+                                        Validasi & Masuk Toko <i class="fas fa-arrow-right ms-1"></i>
+                                    </button>
+                                    <a href="api-explorer.html" class="btn btn-link text-decoration-none text-muted small">
+                                        <i class="fas fa-book me-1"></i> Buka Dokumentasi API
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <!-- Greeting Card -->
-                <div class="greeting-card">
-                    <h3><i class="fas fa-wave-hand"></i> Halo, <span id="userName" class="text-primary">User</span>!</h3>
-                    <p>Kelola API Key Anda dan coba API di bawah ini untuk mengakses fitur-fitur eksklusif CompuStore.</p>
+    <div class="toast-container">
+        <div id="liveToast" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage">
+                    Action successful!
                 </div>
-
-                <!-- Tab Navigation -->
-                <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="api-key-tab" data-bs-toggle="tab" data-bs-target="#api-key-content" type="button">
-                            <i class="fas fa-key"></i> API Key Management
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="api-explorer-tab" data-bs-toggle="tab" data-bs-target="#api-explorer-content" type="button">
-                            <i class="fas fa-flask"></i> API Explorer
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="tab-content" id="dashboardTabContent">
-                    <!-- TAB 1: API KEY MANAGEMENT -->
-                    <div class="tab-pane fade show active" id="api-key-content" role="tabpanel">
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="fas fa-lock"></i> Langkah 1: Generate API Key
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-3">Status API Key Anda:</p>
-                                <div class="keyStatus-box keyStatus-empty" id="keyStatus">
-                                    <i class="fas fa-exclamation-circle"></i> Belum Ada
-                                </div>
-                                <button onclick="generateKey()" class="btn btn-action w-100">
-                                    <i class="fas fa-plus-circle"></i> Generate Key Baru
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-                                <i class="fas fa-check-circle"></i> Langkah 2: Validasi dan Akses Toko
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-3">Salin Key di atas dan tempel di bawah ini untuk validasi:</p>
-                                <div class="mb-3">
-                                    <input type="text" id="inputKey" class="form-control" placeholder="Paste API Key Anda disini...">
-                                </div>
-                                <button class="btn btn-action w-100" onclick="validateKey()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-                                    <i class="fas fa-check"></i> Validasi & Masuk ke Toko
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 2: API EXPLORER -->
-                    <div class="tab-pane fade" id="api-explorer-content" role="tabpanel">
-                        <div class="api-input-group">
-                            <h5><i class="fas fa-flask"></i> Interactive API Explorer</h5>
-                            
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-key"></i> Your API Key</label>
-                                <input type="text" id="explorerApiKey" class="form-control" placeholder="Masukkan API Key Anda..." value="">
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label"><i class="fas fa-globe"></i> Protocol</label>
-                                    <select id="explorerProtocol" class="form-select">
-                                        <option value="HTTP">HTTP</option>
-                                        <option value="HTTPS">HTTPS</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label"><i class="fas fa-cogs"></i> Method</label>
-                                    <select id="explorerMethod" class="form-select">
-                                        <option value="GET">GET</option>
-                                        <option value="POST">POST</option>
-                                        <option value="PUT">PUT</option>
-                                        <option value="DELETE">DELETE</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-link"></i> Endpoint URL</label>
-                                <input type="text" id="explorerUrl" class="form-control" placeholder="e.g., /api/products or http://localhost:3000/api/products">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-code"></i> Request Body (JSON)</label>
-                                <textarea id="explorerBody" class="form-control" placeholder='{"key": "value"}'></textarea>
-                            </div>
-
-                            <button onclick="sendRequest()" class="btn btn-action w-100 mb-3">
-                                <i class="fas fa-paper-plane"></i> Send Request
-                            </button>
-                        </div>
-
-                        <!-- Response Section -->
-                        <div id="responseContainer" style="display: none;">
-                            <div class="mb-4">
-                                <h5 class="response-header"><i class="fas fa-terminal"></i> Call</h5>
-                                <div class="request-url" id="callUrl">-</div>
-                            </div>
-
-                            <div class="mb-4">
-                                <h5 class="response-header"><i class="fas fa-check-circle"></i> Response Code</h5>
-                                <div class="response-code" id="responseCode">-</div>
-                            </div>
-
-                            <div class="mb-4">
-                                <h5 class="response-header"><i class="fas fa-heading"></i> Response Headers</h5>
-                                <div class="response-section" id="responseHeaders">-</div>
-                            </div>
-
-                            <div class="mb-4">
-                                <h5 class="response-header"><i class="fas fa-database"></i> Response Body</h5>
-                                <div class="response-section" id="responseBody">-</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // UI Helper: Show Toast
+        function showToast(message, type = 'success') {
+            const toastEl = document.getElementById('liveToast');
+            const toastBody = document.getElementById('toastMessage');
+            
+            // Set Color based on type
+            if(type === 'error') {
+                toastEl.classList.remove('bg-primary', 'bg-success');
+                toastEl.classList.add('bg-danger');
+            } else {
+                toastEl.classList.remove('bg-danger', 'bg-primary');
+                toastEl.classList.add('bg-success');
+            }
+
+            toastBody.innerText = message;
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+
+        // Helper: Copy to Clipboard
+        function copyToClipboard() {
+            const keyText = document.getElementById('apiKeyValue').innerText;
+            navigator.clipboard.writeText(keyText).then(() => {
+                showToast('API Key berhasil disalin!', 'success');
+            });
+        }
+
+        // Helper: Update UI State
+        function updateUIWithKey(key) {
+            document.getElementById('keyStatusEmpty').classList.add('d-none');
+            document.getElementById('keyStatusActive').classList.remove('d-none');
+            document.getElementById('apiKeyValue').innerText = key;
+        }
+
         async function loadData() {
-            const res = await fetch('/api/user/me');
-            if (res.status === 401) window.location.href = 'index.html';
-            const user = await res.json();
-            document.getElementById('userName').innerText = user.username;
-            if (user.api_key) {
-                const keyStatusEl = document.getElementById('keyStatus');
-                keyStatusEl.innerText = user.api_key;
-                keyStatusEl.classList.remove('keyStatus-empty');
-                document.getElementById('explorerApiKey').value = user.api_key;
+            try {
+                // Simulasi fetch data (Ganti dengan endpoint aslimu)
+                const res = await fetch('/api/user/me');
+                if (res.status === 401) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+                const user = await res.json();
+                
+                document.getElementById('userName').innerText = user.username || 'User';
+                
+                if (user.api_key) {
+                    updateUIWithKey(user.api_key);
+                }
+            } catch (error) {
+                console.error('Gagal memuat data user', error);
             }
         }
 
         async function generateKey() {
-            const res = await fetch('/api/user/generate-key', { method: 'POST' });
-            const data = await res.json();
-            if (data.success) {
-                const keyStatusEl = document.getElementById('keyStatus');
-                keyStatusEl.innerText = data.api_key;
-                keyStatusEl.classList.remove('keyStatus-empty');
-                document.getElementById('explorerApiKey').value = data.api_key;
-                alert('✓ API Key berhasil dibuat!');
+            try {
+                const res = await fetch('/api/user/generate-key', { method: 'POST' });
+                const data = await res.json();
+                
+                if (data.success) {
+                    updateUIWithKey(data.api_key);
+                    showToast('API Key baru berhasil dibuat!');
+                } else {
+                    showToast('Gagal membuat API Key', 'error');
+                }
+            } catch (error) {
+                showToast('Terjadi kesalahan sistem', 'error');
             }
         }
 
         async function validateKey() {
             const inputKey = document.getElementById('inputKey').value;
-            const res = await fetch('/api/user/validate-key', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ input_key: inputKey })
-            });
-            const data = await res.json();
-            if (data.success) {
-                window.location.href = 'products.html';
-            } else {
-                alert('✗ API Key Salah!');
-            }
-        }
-
-        // ========== API EXPLORER FUNCTIONS ==========
-        async function sendRequest() {
-            const apiKey = document.getElementById('explorerApiKey').value.trim();
-            const protocol = document.getElementById('explorerProtocol').value;
-            const method = document.getElementById('explorerMethod').value;
-            let url = document.getElementById('explorerUrl').value.trim();
-            const bodyText = document.getElementById('explorerBody').value.trim();
-
-            // Validasi API Key
-            if (!apiKey) {
-                alert('Masukkan API Key terlebih dahulu!');
+            if(!inputKey) {
+                showToast('Mohon masukkan API Key terlebih dahulu', 'error');
                 return;
-            }
-
-            // Validasi URL
-            if (!url) {
-                alert('Masukkan Endpoint URL!');
-                return;
-            }
-
-            // Normalkan URL (tambahkan http jika tidak ada)
-            if (!url.startsWith('http')) {
-                url = `http://localhost:3000${url.startsWith('/') ? '' : '/'}${url}`;
             }
 
             try {
-                // Buat header dengan API Key
-                const headers = {
-                    'Content-Type': 'application/json',
-                    'x-api-key': apiKey
-                };
-
-                // Siapkan body jika ada
-                let body = null;
-                if (method !== 'GET' && method !== 'DELETE' && bodyText) {
-                    try {
-                        body = JSON.parse(bodyText);
-                    } catch (e) {
-                        alert('Body JSON tidak valid!');
-                        return;
-                    }
-                }
-
-                // Kirim request
-                const fetchOptions = {
-                    method: method,
-                    headers: headers
-                };
-
-                if (body) {
-                    fetchOptions.body = JSON.stringify(body);
-                }
-
-                const response = await fetch(url, fetchOptions);
-                
-                // Ambil response data
-                const responseText = await response.text();
-                let responseData = null;
-                
-                try {
-                    responseData = JSON.parse(responseText);
-                } catch (e) {
-                    responseData = responseText;
-                }
-
-                // Format response headers
-                const headersObj = {};
-                response.headers.forEach((value, name) => {
-                    headersObj[name] = value;
+                const res = await fetch('/api/user/validate-key', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ input_key: inputKey })
                 });
-
-                // Tampilkan hasil
-                displayResponse(url, response.status, headersObj, responseData);
-
+                const data = await res.json();
+                
+                if (data.success) {
+                    showToast('Validasi Berhasil! Mengalihkan...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'products.html';
+                    }, 1000);
+                } else {
+                    showToast('API Key Tidak Valid!', 'error');
+                }
             } catch (error) {
-                console.error('Error:', error);
-                alert(`Error: ${error.message}`);
-                displayErrorResponse(error.message);
+                showToast('Gagal menghubungi server', 'error');
             }
         }
 
-        function displayResponse(url, statusCode, headers, body) {
-            const container = document.getElementById('responseContainer');
-            container.style.display = 'block';
-
-            // Call URL
-            document.getElementById('callUrl').textContent = url;
-
-            // Response Code
-            const codeElement = document.getElementById('responseCode');
-            codeElement.textContent = statusCode;
-            codeElement.style.color = statusCode >= 200 && statusCode < 300 ? '#4ec9b0' : '#f48771';
-
-            // Response Headers
-            const headersElement = document.getElementById('responseHeaders');
-            const headersContent = formatHeaders(headers);
-            headersElement.innerHTML = `<pre>${headersContent}</pre>`;
-
-            // Response Body
-            const bodyElement = document.getElementById('responseBody');
-            const bodyContent = typeof body === 'string' ? body : JSON.stringify(body, null, 2);
-            bodyElement.innerHTML = `<pre>${formatJson(bodyContent)}</pre>`;
-
-            // Scroll to response
-            setTimeout(() => {
-                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-
-        function displayErrorResponse(errorMessage) {
-            const container = document.getElementById('responseContainer');
-            container.style.display = 'block';
-
-            document.getElementById('callUrl').textContent = 'Error';
-            document.getElementById('responseCode').textContent = 'ERROR';
-            document.getElementById('responseCode').style.color = '#f48771';
-            document.getElementById('responseHeaders').innerHTML = '<pre>-</pre>';
-            document.getElementById('responseBody').innerHTML = `<pre>${errorMessage}</pre>`;
-        }
-
-        function formatHeaders(headers) {
-            let content = '{\n';
-            const keys = Object.keys(headers);
-            keys.forEach((key, index) => {
-                content += `  <span class="json-key">"${key}"</span>: <span class="json-string">"${headers[key]}"</span>`;
-                if (index < keys.length - 1) content += ',';
-                content += '\n';
-            });
-            content += '}';
-            return content;
-        }
-
-        function formatJson(jsonString) {
-            try {
-                let json = JSON.parse(jsonString);
-                let formatted = JSON.stringify(json, null, 2);
-                
-                // Syntax highlighting sederhana
-                formatted = formatted
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
-                    .replace(/: "([^"]*)"/g, ': <span class="json-string">"$1"</span>')
-                    .replace(/: ([0-9]+)/g, ': <span class="json-number">$1</span>')
-                    .replace(/: (true|false|null)/g, ': <span class="json-number">$1</span>');
-                
-                return formatted;
-            } catch (e) {
-                return jsonString;
-            }
-        }
-
-        // Load data saat halaman dibuka
+        // Init
         loadData();
     </script>
 </body>
