@@ -19,8 +19,6 @@ RIWAYAT PESANAN
 
 
 
-
-
 HALAMAN USER
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8ce57a28-3a70-4b0b-abfe-c51ac83a25a9" />
 
@@ -31,7 +29,11 @@ HALAMAN PRODUK
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9663a5a2-1eae-4c08-b551-f61b17efdfbb" />
 
 HALAMAN KERANJANG
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a1cd9e8a-b5ee-43f7-aceb-20da7119fbbb" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/812284ca-5eba-492b-8248-5b54d571f5e4" />
+
+HALAMAN PEMBAYARAN
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/417c5168-ff85-4c6c-9a0f-996eb844ccd5" />
+
 
 
 
