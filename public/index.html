@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CompuStore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .login-container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            gap: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-left {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-width: 40%;
+        }
+        
+        .login-left h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-left p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .login-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 0;
+            border: none;
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .login-card h2 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .login-card .subtitle {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-control {
+            height: 48px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            padding: 12px 16px;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+        
+        .btn-login {
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .login-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .login-footer a:hover {
+            color: #764ba2;
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            
+            .login-left {
+                min-width: 100%;
+                padding: 40px 30px;
+            }
+            
+            .login-left h1 {
+                font-size: 36px;
+            }
+            
+            .login-card {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <div class="login-icon">
+                <i class="fas fa-laptop"></i>
+            </div>
+            <h1>CompuStore</h1>
+            <p>Belanja kebutuhan komputer dan teknologi terbaik dengan harga terjangkau</p>
+        </div>
+        
+        <div class="card login-card">
+            <h2>Masuk Akun</h2>
+            <p class="subtitle">Akses dashboard Anda untuk berbelanja</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Masukkan username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="btn btn-login w-100">Masuk Sekarang</button>
+            </form>
+            
+            <div class="login-footer">
+                Belum punya akun? <a href="register.html">Daftar di sini</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const res = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            
+            if (data.success) {
+                window.location.href = data.redirect;
+            } else {
+                alert(data.message);
+            }
+        };
+    </script>
+</body>
+</html>
